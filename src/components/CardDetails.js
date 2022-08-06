@@ -2,14 +2,15 @@ import Table from "react-bootstrap/Table";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { DLT, ADD, REMOVE } from "../redux/actions/action";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const CardDetails = () => {
   const [data, setData] = useState([]);
 
   const getdata = useSelector((state) => state.cartreducer.carts);
 
-  const { id } = useParams();
+  let { id } = useParams();
+  id = parseInt(id); //Coverting id from string format to number
 
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const CardDetails = () => {
 
   const compare = () => {
     let comparedata = getdata.filter((e) => {
-      return e.id == id;
+      return e.id === id;
     });
     setData(comparedata);
   };

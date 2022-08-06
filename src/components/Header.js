@@ -5,7 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import { NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
@@ -31,13 +31,13 @@ const Header = () => {
     dispatch(DLT(id));
   };
 
-  const total = () => {
+  const total = useCallback(() => {
     let price = 0;
     getdata.map((ele, k) => {
-      price = ele.price * ele.qnty + price;
+      return (price = ele.price * ele.qnty + price);
     });
     setPrice(price);
-  };
+  }, [getdata]);
 
   useEffect(() => {
     total();
